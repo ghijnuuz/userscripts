@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		什么值得买 自动签到
-// @version		v1.0.0
-// @match		http://www.smzdm.com/*
+// @version		v1.0.1
+// @match		http://*.smzdm.com/*
 // @author		ghijnuuz@gmail.com
 // @description 什么值得买网站，登陆后打开网页自动签到
 // ==/UserScript==
