@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X-Art Helper
 // @namespace    http://www.x-art.com/
-// @version      0.1
+// @version      0.2
 // @description  X-Art Helper
 // @author       anonymous
 // @match        http://www.x-art.com/videos/*
@@ -10,8 +10,32 @@
 // ==/UserScript==
 
 var XArt = {
-	videos: {
-		getVideoInfo: function() {
+	TorrentSearchEngine: {
+		Engines: [{
+			name: "BTDigg",
+			url: "http://btdigg.org/search?q={SearchString}"
+		}, {
+			name: "Torrentz",
+			url: "http://torrentz.eu/any?f={SearchString}"
+		}, {
+			name: "ExtraTorrent",
+			url: "http://extratorrent.cc/search/?search={SearchString}"
+		}, {
+			name: "BitSnoop",
+			url: "http://bitsnoop.com/search/all/{SearchString}"
+		}],
+		GetSearchLinkArray: function(searchStr) {
+			var result = new Array();
+			for (var i = 0; i < this.Engines.length; i++) {
+				var item = this.Engines[i];
+				var str = '<a target="_blank" href="' + item.url.replace(/{SearchString}/, searchStr) + '">' + item.name + '</a>';
+				result.push(str);
+			};
+			return result;
+		}
+	},
+	Videos: {
+		GetVideoInfo: function() {
 			var result = {};
 			result.name = $("#content h1").text();
 			result.date = new Date($("#content .head-list li").eq(0).text());
@@ -19,29 +43,27 @@ var XArt = {
 			$("#content .head-list li a").each(function() {
 				result.models.push($(this).text());
 			});
-			result.getFileName = function() {
+			result.GetFileName = function() {
 				var dateNumber = this.date.getFullYear() * 10000 + (this.date.getMonth() + 1) * 100 + this.date.getDate();
 				var modelsStr = this.models.join(" & ");
 				return "X-Art " + dateNumber + " " + modelsStr +  " - " + this.name;
 			};
-			result.getSearchString = function() {
+			result.GetSearchString = function() {
 				var modelsStr = this.models.join(" ");
 				return "X-Art " + modelsStr + " " + this.name;
 			};
 			return result;
 		},
-		doHelp: function() {
-			var videoInfo = XArt.videos.getVideoInfo();
+		DoHelp: function() {
+			var videoInfo = XArt.Videos.GetVideoInfo();
 			// 添加输入框，写入文件名
 			$("#content .box").eq(0).before('<div><input type="text" style="width: 100%;" id="filenametext" /></div>');
-			$("#filenametext").val(videoInfo.getFileName());
+			$("#filenametext").val(videoInfo.GetFileName());
 			// 添加下载按钮
-			var btdiggStr = "http://btdigg.org/search?info_hash=&q=" + videoInfo.getSearchString();
-			var thepriatebayStr = "";
-			var bitsnoopStr = "http://bitsnoop.com/search/all/" + videoInfo.getSearchString() + "/c/d/1/";
-			$("#content .box").eq(0).before('<div>DownLoad: <a target="_blank" href="' + btdiggStr + '">BTDigg</a> | <a target="_blank" href="' + thepriatebayStr + '">The Pirate Bay</a> | <a target="_blank" href="' + bitsnoopStr + '">BitSnoop</a></div>');
+			var searchLinkArray = XArt.TorrentSearchEngine.GetSearchLinkArray(videoInfo.GetSearchString());
+			$("#content .box").eq(0).before('<div>DownLoad: ' + searchLinkArray.join(" | ") + '</div>');
 		}
 	}
 };
 
-XArt.videos.doHelp();
+XArt.Videos.DoHelp();
