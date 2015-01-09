@@ -4,7 +4,7 @@
 // @version      0.2
 // @description  X-Art Helper
 // @author       anonymous
-// @match        http://www.x-art.com/videos/*
+// @match        http://www.x-art.com/videos/*/
 // @grant        none
 // @require      http://code.jquery.com/jquery-1.11.2.min.js
 // ==/UserScript==
