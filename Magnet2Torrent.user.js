@@ -10,7 +10,7 @@
 
 $("a").each(function() {
 	var hrefStr = $(this).attr("href");
-	if (hrefStr.match(/^magnet:\?/i)) {
+	if (hrefStr && hrefStr.length > 0 && hrefStr.match(/^magnet:\?/i)) {
 		var infoHash = hrefStr.replace(/(.*urn:btih:)([0-9a-f]*)(&.*)/i, "$2").toUpperCase();
 		var newNode = $(this).clone();
 		$(this).after(newNode);
