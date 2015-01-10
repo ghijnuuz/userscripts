@@ -4,6 +4,10 @@
 // @version      0.1
 // @description  Magnet2Torrent
 // @author       anonymous
+// @match        http://btdigg.org/*
+// @match        http://torrentz.eu/*
+// @match        http://extratorrent.cc/*
+// @match        http://bitsnoop.com/*
 // @grant        none
 // @require      http://code.jquery.com/jquery-1.11.2.min.js
 // ==/UserScript==
