@@ -15,6 +15,9 @@ var XArt = {
 			name: "BTDigg",
 			url: "http://btdigg.org/search?q={SearchString}"
 		}, {
+			name: "The Pirate Bay",
+			url: "https://thepiratebay.se/search/{SearchString}"
+		}, {
 			name: "Torrentz",
 			url: "http://torrentz.eu/any?f={SearchString}"
 		}, {
