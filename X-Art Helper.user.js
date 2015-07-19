@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X-Art Helper
 // @namespace    http://www.x-art.com/
-// @version      0.2
+// @version      0.3
 // @description  X-Art Helper
 // @author       anonymous
 // @match        http://www.x-art.com/videos/*/
@@ -12,6 +12,9 @@
 var XArt = {
 	TorrentSearchEngine: {
 		Engines: [{
+			name: "BTCherry",
+			url: "http://www.btcherry.net/search?keyword={SearchString}"
+		}, {
 			name: "BTDigg",
 			url: "http://btdigg.org/search?q={SearchString}"
 		}, {
